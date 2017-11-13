@@ -31,7 +31,7 @@ def logout():
 
 @app.route('/tembak/<abc>')
 def tembak(abc):
-    publish.single("paho/test/multiple", abc, hostname="mau.nyalainlampu.ga", port=8883)
+    publish.single("inTopic", abc, hostname="mau.nyalainlampu.ga", port=8883, auth={'username':"testuser",'password':"testpassword"})
     # return redirect(url_for('index'))
     return 'Messagemu: %s' % abc
 
