@@ -23,7 +23,7 @@ def login():
 
 @app.route('/logout')
 def logout():
-    msgs = [{'topic': "paho/test/multiple", 'payload': "multiple 1"}, ("paho/test/multiple", "multiple 2", 0, False), ("paho/test/multiple", "multiple asu", 0, False)]
+    msgs = [{'topic': "inTopicz", 'payload': "multiple 1"}, ("inTopicz", "multiple 2", 0, False), ("inTopicz", "multiple asu", 0, False)]
     publish.multiple(msgs, hostname="localhost")
     # remove the username from the session if it's there
     session.pop('username', None)
@@ -31,11 +31,18 @@ def logout():
 
 @app.route('/tembak/<abc>')
 def tembak(abc):
-    publish.single("inTopic", abc, hostname="mau.nyalainlampu.ga", port=8883, auth={'username':"testuser",'password':"testpassword"})
+    publish.single("inTopicz", abc, hostname="mau.nyalainlampu.ga", port=8883, auth={'username':"testuser",'password':"testpassword"})
     # return redirect(url_for('index'))
     return 'Messagemu: %s' % abc
 
-
+@app.route('/user_rec', methods=['POST'])
+def user_rec():
+    user_name = request.form.get('user_input')
+    min_time = request.form.get('min_time')
+    max_time = request.form.get('max_time')
+    players = request.form.getlist('check')
+    print(user_name, min_time, max_time, players)
+    return redirect('/')
 
 
 # set the secret key.  keep this really secret:
